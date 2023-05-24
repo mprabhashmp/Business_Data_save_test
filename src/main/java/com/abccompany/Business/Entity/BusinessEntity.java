@@ -1,23 +1,28 @@
 package com.abccompany.Business.Entity;
 
-public class BusinessEntity {
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Entity
+public class BusinessEntity {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+
+    private long id;
     private String name;
     private int mobile;
 
-    public String getName () {
-        return name;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private AddressEntity address;
 
-    public void setName (String name) {
-        this.name = name;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id", referencedColumnName = "id")
+    private LocationEntity location;
 
-    public int getMobile () {
-        return mobile;
-    }
-
-    public void setMobile (int mobile) {
-        this.mobile = mobile;
-    }
 }
